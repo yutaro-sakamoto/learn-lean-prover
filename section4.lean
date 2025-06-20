@@ -14,3 +14,12 @@ variable (hab : r a b) (hbc : r b c)
 #check trans_r a b c          -- r a b → r b c → r a c
 #check trans_r a b c hab      -- r b c → r a c
 #check trans_r a b c hab hbc  -- r a c
+
+variable (α : Type) (r : α → α → Prop)
+
+variable (refl_r : ∀ x, r x x)
+variable (symm_r : ∀ {x y}, r x y → r y x)
+variable (trans_r : ∀ {x y z}, r x y → r y z → r x z)
+
+example (a b c d : α) (hab : r a b) (hcb : r c b) (hcd : r c d) : r a d :=
+  trans_r (trans_r hab (symm_r hcb)) hcd
