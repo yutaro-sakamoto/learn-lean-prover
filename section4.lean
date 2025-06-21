@@ -23,3 +23,20 @@ variable (trans_r : ∀ {x y z}, r x y → r y z → r x z)
 
 example (a b c d : α) (hab : r a b) (hcb : r c b) (hcd : r c d) : r a d :=
   trans_r (trans_r hab (symm_r hcb)) hcd
+
+#check Eq.refl
+#check Eq.symm
+#check Eq.trans
+
+universe u
+
+#check @Eq.refl.{u}
+#check @Eq.symm.{u}
+#check @Eq.trans.{u}
+
+namespace foo
+  variable (α : Type) (a b c d : α)
+  variable (hab : a = b) (hcb : c = b) (hcd : c = d)
+  example : a = d :=
+    Eq.trans (Eq.trans hab (Eq.symm hcb)) hcd
+end foo
