@@ -40,3 +40,8 @@ namespace foo
   example : a = d :=
     Eq.trans (Eq.trans hab (Eq.symm hcb)) hcd
 end foo
+
+namespace foo1
+  variable (α β : Type)
+  example (f : α → β) (a : α) : (fun x => f x) a = f a := Eq.refl _
+end foo1
