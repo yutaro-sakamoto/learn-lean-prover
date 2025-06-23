@@ -44,4 +44,10 @@ end foo
 namespace foo1
   variable (α β : Type)
   example (f : α → β) (a : α) : (fun x => f x) a = f a := Eq.refl _
+  example (a : α) (b: β) : (a, b).1 = a := Eq.refl _
+  example : 2 + 3 = 5 := Eq.refl _
+
+  example (f : α → β) (a : α) : (fun x => f x) a = f a := rfl
+  example (a : α) (b: β) : (a, b).1 = a := rfl
+  example : 2 + 3 = 5 := rfl
 end foo1
