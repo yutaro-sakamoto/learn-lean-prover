@@ -50,4 +50,14 @@ namespace foo1
   example (f : α → β) (a : α) : (fun x => f x) a = f a := rfl
   example (a : α) (b: β) : (a, b).1 = a := rfl
   example : 2 + 3 = 5 := rfl
+
+  example (α : Type) (a b : α) (p : α → Prop)
+          (h1 : a = b) (h2 : p a) : p b := Eq.subst h1 h2
+
+  example (α : Type) (a b : α) (p : α → Prop)  -- h2の型の中に登場するh1の左辺をh1の右辺で書き換える
+          (h1 : a = b) (h2 : p a) : p b :=
+          h1 ▸ h2
+  example (α : Type) (a b : α) (p : α → Prop)
+          (h1 : a = b) (h2 : p b) : p a :=
+          h1 ▸ h2
 end foo1
