@@ -61,3 +61,15 @@ namespace foo1
           (h1 : a = b) (h2 : p b) : p a :=
           h1 ▸ h2
 end foo1
+
+namespace congrExample
+  variable (α : Type)
+  variable (a b : α)
+  variable (f g : α → Nat)
+  variable (h₁ : a = b)
+  variable (h₂ : f = g)
+
+  example : f a = f b := congrArg f h₁
+  example : f a = g a := congrFun h₂ a
+  example : f a = g b := congr h₂ h₁
+end congrExample
