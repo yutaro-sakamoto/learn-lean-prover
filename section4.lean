@@ -1,3 +1,4 @@
+import data.int.basic
 example (α : Type) (p q : α → Prop) : (∀ x : α, p x ∧ q x) → ∀ y : α, p y :=
   fun h : ∀ x : α, p x ∧ q x =>
   fun y : α =>
@@ -89,3 +90,9 @@ namespace SimpleIdentity
   example : (a + b) * c = a * c + b * c := Nat.add_mul a b c
   example : (a + b) * c = a * c + b * c := Nat.right_distrib a b c
 end SimpleIdentity
+
+namespace Integers
+variables x y z : ℤ
+
+example (x y z : ℕ) : x * (y + z) = x * y + x * z := mul_add x y z
+end Integers
