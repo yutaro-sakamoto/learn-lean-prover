@@ -92,7 +92,6 @@ namespace SimpleIdentity
 end SimpleIdentity
 
 namespace Integers
-variables x y z : ℤ
+variable (x y z : ℤ)
 
-example (x y z : ℕ) : x * (y + z) = x * y + x * z := mul_add x y z
 end Integers
