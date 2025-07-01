@@ -100,3 +100,22 @@ example (x y : Nat) : (x + y) * (x + y) = x * x + y * x + x * y + y * y :=
     (Nat.add_mul x y x) ▸ (Nat.add_mul x y y) ▸ h1
   h2.trans (Nat.add_assoc (x * x + y * x) (x * y) (y * y)).symm
 end Integers
+
+#check Eq.subst
+
+namespace Equations
+variable (a b c d e : Nat)
+
+theorem T
+    (h1 : a = b)
+    (h2 : b = c + 1)
+    (h3 : c = d)
+    (h4 : e = 1 + d) :
+    a = e :=
+  calc
+    a = b      := h1
+    _ = c + 1  := h2
+    _ = d + 1  := congrArg Nat.succ h3
+    _ = 1 + d  := Nat.add_comm d 1
+    _ = e      := Eq.symm h4
+end Equations
