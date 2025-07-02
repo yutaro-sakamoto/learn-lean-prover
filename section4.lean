@@ -118,4 +118,17 @@ theorem T
     _ = d + 1  := congrArg Nat.succ h3
     _ = 1 + d  := Nat.add_comm d 1
     _ = e      := Eq.symm h4
+
+theorem T1
+    (h1 : a = b)
+    (h2 : b = c + 1)
+    (h3 : c = d)
+    (h4 : e = 1 + d) :
+    a = e :=
+  calc
+    a = b      := by rw [h1]
+    _ = c + 1  := by rw [h2]
+    _ = d + 1  := by rw [h3]
+    _ = 1 + d  := by rw [Nat.add_comm]
+    _ = e      := by rw [h4]
 end Equations
