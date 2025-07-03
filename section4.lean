@@ -131,4 +131,15 @@ theorem T1
     _ = d + 1  := by rw [h3]
     _ = 1 + d  := by rw [Nat.add_comm]
     _ = e      := by rw [h4]
+
+theorem T2
+    (h1 : a = b)
+    (h2 : b = c + 1)
+    (h3 : c = d)
+    (h4 : e = 1 + d) :
+    a = e :=
+  calc
+    a = d + 1 := by rw [h1, h2, h3]
+    _ = 1 + d := by rw [Nat.add_comm]
+    _ = e := by rw [h4]
 end Equations
