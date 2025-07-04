@@ -142,4 +142,20 @@ theorem T2
     a = d + 1 := by rw [h1, h2, h3]
     _ = 1 + d := by rw [Nat.add_comm]
     _ = e := by rw [h4]
+
+theorem T3
+    (h1 : a = b)
+    (h2 : b = c + 1)
+    (h3 : c = d)
+    (h4 : e = 1 + d) :
+    a = e :=
+    by rw [h1, h2, h3, Nat.add_comm, h4]
+
+theorem T4
+    (h1 : a = b)
+    (h2 : b = c + 1)
+    (h3 : c = d)
+    (h4 : e = 1 + d) :
+    a = e :=
+    by simp [h1, h2, h3, Nat.add_comm, h4]
 end Equations
