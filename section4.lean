@@ -158,4 +158,11 @@ theorem T4
     (h4 : e = 1 + d) :
     a = e :=
     by simp [h1, h2, h3, Nat.add_comm, h4]
+
+example (a b c d : Nat) (h1 : a = b) (h2 : b ≤ c) (h3 : c + 1 < d) : a < d :=
+  calc
+    a = b := h1
+    _ < b + 1 := Nat.lt_succ_self b
+    _ ≤ c + 1 := Nat.succ_le_succ h2
+    _ < d := h3
 end Equations
