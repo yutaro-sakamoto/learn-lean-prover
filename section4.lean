@@ -165,4 +165,12 @@ example (a b c d : Nat) (h1 : a = b) (h2 : b ≤ c) (h3 : c + 1 < d) : a < d :=
     _ < b + 1 := Nat.lt_succ_self b
     _ ≤ c + 1 := Nat.succ_le_succ h2
     _ < d := h3
+
+def divides (x y : Nat) : Prop :=
+  ∃ k, k * x  = y
+
+def devides_trans (h₁ : divides x y) (h₂ : divides y z) : divides x z :=
+  let ⟨k₁, d₁⟩ := h₁
+  let ⟨k₂, d₂⟩ := h₂
+  ⟨k₁ * k₂, by rw [Nat.mul_comm k₁ k₂, Nat.mul_assoc, d₁, d₂]⟩
 end Equations
