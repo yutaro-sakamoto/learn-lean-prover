@@ -169,8 +169,14 @@ example (a b c d : Nat) (h1 : a = b) (h2 : b ≤ c) (h3 : c + 1 < d) : a < d :=
 def divides (x y : Nat) : Prop :=
   ∃ k, k * x  = y
 
-def devides_trans (h₁ : divides x y) (h₂ : divides y z) : divides x z :=
+def divides_trans (h₁ : divides x y) (h₂ : divides y z) : divides x z :=
   let ⟨k₁, d₁⟩ := h₁
   let ⟨k₂, d₂⟩ := h₂
   ⟨k₁ * k₂, by rw [Nat.mul_comm k₁ k₂, Nat.mul_assoc, d₁, d₂]⟩
+
+def devides_mul (x : Nat) (k : Nat) : divides x (k*x) :=
+  ⟨k, rfl⟩
+
+instance: Trans divides divides divides where
+  trans := divides_trans
 end Equations
