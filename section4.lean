@@ -193,4 +193,11 @@ example (h₁ : divides x y) (h₂ : y = z) : divides x (2 * z) :=
     x | y := h₁
     _ = z := h₂
     _ | 2  * z := divides_mul ..
+
+example (x y : Nat) : (x + y) * (x + y) = x * x + y * x + x * y + y * y :=
+  calc
+    (x + y) * (x + y) = (x + y) * x + (x + y) * y := by rw [Nat.mul_add]
+    _ = x * x + y * x + (x + y) * y := by rw [Nat.add_mul]
+    _ = x * x + y * x + (x * y + y * y) := by rw [Nat.add_mul]
+    _ = x * x + y * x + x * y + y * y := by rw [←Nat.add_assoc]
 end Equations
