@@ -200,4 +200,18 @@ example (x y : Nat) : (x + y) * (x + y) = x * x + y * x + x * y + y * y :=
     _ = x * x + y * x + (x + y) * y := by rw [Nat.add_mul]
     _ = x * x + y * x + (x * y + y * y) := by rw [Nat.add_mul]
     _ = x * x + y * x + x * y + y * y := by rw [←Nat.add_assoc]
+
+example (x y : Nat) : (x + y) * (x + y) = x * x + y * x + x * y + y * y :=
+  calc
+    (x + y) * (x + y)
+    _ = (x + y) * x + (x + y) * y := by rw [Nat.mul_add]
+    _ = x * x + y * x + (x + y) * y := by rw [Nat.add_mul]
+    _ = x * x + y * x + (x * y + y * y) := by rw [Nat.add_mul]
+    _ = x * x + y * x + x * y + y * y := by rw [←Nat.add_assoc]
+
+example (x y : Nat) : (x + y) * (x + y) = x * x + y * x + x * y + y * y :=
+  by rw [Nat.mul_add, Nat.add_mul, Nat.add_mul, ←Nat.add_assoc]
+
+example (x y : Nat) : (x + y) * (x + y) = x * x + y * x + x * y + y * y :=
+  by simp [Nat.mul_add, Nat.add_mul, ←Nat.add_assoc]
 end Equations
