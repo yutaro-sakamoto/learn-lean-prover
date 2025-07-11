@@ -214,4 +214,16 @@ example (x y : Nat) : (x + y) * (x + y) = x * x + y * x + x * y + y * y :=
 
 example (x y : Nat) : (x + y) * (x + y) = x * x + y * x + x * y + y * y :=
   by simp [Nat.mul_add, Nat.add_mul, ←Nat.add_assoc]
+
+example : ∃ x : Nat, x > 0 :=
+  have h : 1 > 0 := Nat.zero_lt_succ 0
+  Exists.intro 1 h
+
+example (x : Nat) (h : x > 0) : ∃ y, y < x :=
+  Exists.intro 0 h
+
+example (x y z : Nat) (hxy : x < y) (hyz : y < z) : ∃ w, x < w ∧ w < z :=
+  Exists.intro y (And.intro hxy hyz)
+
+#check @Exists.intro
 end Equations
