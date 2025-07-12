@@ -226,4 +226,32 @@ example (x y z : Nat) (hxy : x < y) (hyz : y < z) : ∃ w, x < w ∧ w < z :=
   Exists.intro y (And.intro hxy hyz)
 
 #check @Exists.intro
+
+variable (g : Nat → Nat → Nat)
+
+theorem gex1
+  (hg : g 0 0 = 0)
+  : ∃ x, g x x = x
+  := ⟨0, hg⟩
+
+theorem gex2
+  (hg : g 0 0 = 0)
+  : ∃ x, g x 0 = x
+  := ⟨0, hg⟩
+
+theorem gex3
+  (hg : g 0 0 = 0)
+  : ∃ x, g 0 0 = x
+  := ⟨0, hg⟩
+
+theorem gex4
+  (hg : g 0 0 = 0)
+  : ∃ x, g x x = 0
+  := ⟨0, hg⟩
+
+set_option pp.explicit true
+#print gex1
+#print gex2
+#print gex3
+#print gex4
 end Equations
