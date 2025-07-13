@@ -254,4 +254,13 @@ set_option pp.explicit true
 #print gex2
 #print gex3
 #print gex4
+
+variable (α : Type) (p q : α → Prop)
+example (h : ∃ x, p x ∧ q x) : ∃ x , q x ∧ p x :=
+  Exists.elim h
+    (fun w =>
+      fun hw : p w ∧ q w =>
+        show ∃ x, q x ∧ p x from ⟨w, hw.right, hw.left⟩)
+
+#check @Exists.elim
 end Equations
