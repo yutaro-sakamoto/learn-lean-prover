@@ -264,3 +264,13 @@ example (h : ∃ x, p x ∧ q x) : ∃ x , q x ∧ p x :=
 
 #check @Exists.elim
 end Equations
+
+section exist_prop
+variable (a : α) (p : α → Prop) (h : p a)
+#check Exists.intro a h
+end exist_prop
+
+section sigma_type
+variable (a : α) (p : α → Type) (h : p a)
+#check Sigma.mk a h
+end sigma_type
