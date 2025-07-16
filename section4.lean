@@ -293,4 +293,25 @@ example (h : ∃ x, p x ∧ q x) : ∃ x, q x ∧ p x :=
 
 example : (∃ x, p x ∧ q x) → ∃ x, q x ∧ p x :=
   fun ⟨w, hpw, hqw⟩ => ⟨w, hqw, hpw⟩
+
+def is_even(a : Nat) : Prop := ∃ b : Nat, a = 2 * b
+
+example {a b : Nat} (h1 : is_even a) (h2 : is_even b) : is_even (a + b) :=
+  Exists.elim h1 (fun w1 (hw1 : a = 2 * w1) =>
+  Exists.elim h2 (fun w2 (hw2 : b = 2 * w2) =>
+    Exists.intro (w1 + w2)
+      (calc a + b
+        _ = 2 * w1 + 2 * w2 := by rw [hw1, hw2]
+        _ = 2 * (w1 + w2)   := by rw [Nat.mul_add])))
+
+example : ∀ a b : Nat, is_even a → is_even b → is_even (a + b) :=
+  fun a : Nat =>
+  fun b : Nat =>
+  fun ⟨(w1 : Nat), (hw1 : a = 2 * w1)⟩ =>
+  fun ⟨(w2 : Nat), (hw2 : b = 2 * w2)⟩ =>
+    have hw3 : a + b = 2 * (w1 + w2) :=
+      calc a + b
+        _ = 2 * w1 + 2 * w2 := by rw [hw1, hw2]
+        _ = 2 * (w1 + w2) := by rw [Nat.mul_add]
+    ⟨(w1 + w2 : Nat), (hw3 : a + b = 2 * (w1 + w2))⟩
 end sigma_type
