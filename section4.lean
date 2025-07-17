@@ -314,4 +314,8 @@ example : ∀ a b : Nat, is_even a → is_even b → is_even (a + b) :=
         _ = 2 * w1 + 2 * w2 := by rw [hw1, hw2]
         _ = 2 * (w1 + w2) := by rw [Nat.mul_add]
     ⟨(w1 + w2 : Nat), (hw3 : a + b = 2 * (w1 + w2))⟩
+
+example {a b : Nat}(h1 : is_even a) (h2 : is_even b) : is_even (a + b) :=
+  match h1, h2 with
+  | ⟨w1, hw1⟩, ⟨w2, hw2⟩ => ⟨w1 + w2, by rw [hw1, hw2, Nat.mul_add]⟩
 end sigma_type
