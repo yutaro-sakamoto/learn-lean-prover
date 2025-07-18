@@ -319,3 +319,17 @@ example {a b : Nat}(h1 : is_even a) (h2 : is_even b) : is_even (a + b) :=
   match h1, h2 with
   | ⟨w1, hw1⟩, ⟨w2, hw2⟩ => ⟨w1 + w2, by rw [hw1, hw2, Nat.mul_add]⟩
 end sigma_type
+
+section excercise
+
+variable (α : Type) (p q : α → Prop)
+variable (r : Prop)
+
+example : (∃ x : α, r) → r := fun t =>
+  match t with
+  | ⟨s, u⟩ => u
+
+example (a : α) : r → (∃ x : α, r) := fun s : r => ⟨(a : α), (s : r)⟩
+
+
+end excercise
