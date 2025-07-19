@@ -343,4 +343,14 @@ example : (∃ x, p x ∧ r) ↔ (∃ x, p x) ∧ r :=
 example : (∃ x, p x ∧ r) ↔ (∃ x, p x) ∧ r :=
   ⟨(fun ⟨(ix : α), (pix : p ix), (ir : r)⟩ => ⟨⟨ix, pix⟩, ir⟩),
    (fun ⟨⟨(ix : α), (pix : p ix)⟩, (ir : r)⟩ => ⟨ix, pix, ir⟩)⟩
+
+example : (∃ x, p x ∨ q x) ↔ (∃ x, p x) ∨ (∃ x, q x) :=
+  ⟨fun (⟨ix, pxqx⟩ : ∃ x, p x ∨ q x) =>
+    Or.elim pxqx
+      (fun (pix : p ix) => Or.inl ⟨ix, pix⟩)
+      (fun (qix : q ix) => Or.inr ⟨ix, qix⟩),
+  fun (h : (∃ x, p x) ∨ (∃ x, q x)) =>
+    Or.elim h
+    (fun ⟨ix, pix⟩ => ⟨ix, Or.inl pix⟩)
+     fun ⟨ix, qix⟩ => ⟨ix, Or.inr qix⟩⟩
 end excercise
