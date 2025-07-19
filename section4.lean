@@ -367,4 +367,15 @@ example : (∀ x, p x) ↔ ¬ (∃ x, ¬ p x) :=
       fun ix =>
         Classical.byContradiction (fun (hnpix : ¬ p ix) => h ⟨ix, hnpix⟩)
   ⟩
+
+example : (∃ x, p x) ↔ ¬ (∀ x, ¬ p x) :=
+  ⟨
+    fun (⟨ix, pix⟩ : (∃ x, p x)) (h : ∀ x, ¬ p x) =>
+      show False from h ix pix,
+    fun (h : ¬(∀ x, ¬ p x)) =>
+      Classical.byContradiction
+      (fun (g : ¬ ∃ x, p x)=> h
+        (fun (ix : α) =>
+          (fun (pix : p ix) => g ⟨ix, pix⟩)))
+  ⟩
 end excercise
