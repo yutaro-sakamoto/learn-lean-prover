@@ -331,5 +331,12 @@ example : (∃ x : α, r) → r := fun t =>
 
 example (a : α) : r → (∃ x : α, r) := fun s : r => ⟨(a : α), (s : r)⟩
 
-
+example : (∃ x, p x ∧ r) ↔ (∃ x, p x) ∧ r :=
+  Iff.intro
+    (fun h : ∃ x, p x ∧ r =>
+      match h with
+      | ⟨ix, ⟨pix, ir⟩⟩ => ⟨⟨ix, pix⟩, ir⟩)
+    (fun h : (∃ x, p x) ∧ r =>
+      match h with
+      | ⟨⟨ix, pix⟩, ir⟩ => ⟨ix, ⟨pix, ir⟩⟩)
 end excercise
