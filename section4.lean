@@ -389,4 +389,26 @@ example : (∀ x, p x → r) ↔ (∃ x, p x) → r :=
     (fun (k : (∃ x , p x) → r)
       => fun (ix : α) (pix : p ix) => k ⟨ix, pix⟩)
   ⟩
+
+variable (a : α)
+
+example : (∃ x, p x → r) ↔ (∀ x, p x) → r :=
+  Iff.intro
+    (fun ⟨b, (hb : p b → r)⟩ =>
+     fun h2 : ∀ x, p x =>
+     show r from hb (h2 b))
+    (fun h1 : (∀ x, p x) → r =>
+     show ∃ x, p x → r from
+       Classical.byCases
+         (fun hap : ∀ x, p x => ⟨a, fun h' : p a => h1 hap⟩)
+         (fun hnap : ¬ ∀ x, p x =>
+          Classical.byContradiction
+            (fun hnex : ¬ ∃ x, p x → r =>
+              have hap : ∀ x, p x :=
+                fun x =>
+                Classical.byContradiction
+                  (fun hnp : ¬ p x =>
+                    have hex : ∃ x, p x → r := ⟨x, (fun hp : p x => absurd hp hnp)⟩
+                    show False from hnex hex)
+              show False from hnap hap)))
 end excercise
