@@ -353,4 +353,18 @@ example : (∃ x, p x ∨ q x) ↔ (∃ x, p x) ∨ (∃ x, q x) :=
     Or.elim h
     (fun ⟨ix, pix⟩ => ⟨ix, Or.inl pix⟩)
      fun ⟨ix, qix⟩ => ⟨ix, Or.inr qix⟩⟩
+
+example : (∀ x, p x) ↔ ¬ (∃ x, ¬ p x) :=
+  ⟨
+    fun h : (∀ x , p x) =>
+      fun  (⟨ix, npix⟩ : (∃ x, ¬ p x)) =>
+        show False from npix (h ix),
+    --fun (h : ¬ (∃ x, ¬ p x)) =>
+      --fun ix => Or.elim (Classical.em (p ix))
+      --  (fun (hpix : p ix) => hpix)
+      --  (fun (hnpix : ¬ p ix) => False.elim (h ⟨ix, hnpix⟩))
+    fun (h : ¬ (∃ x, ¬ p x)) =>
+      fun ix =>
+        Classical.byContradiction (fun (hnpix : ¬ p ix) => h ⟨ix, hnpix⟩)
+  ⟩
 end excercise
