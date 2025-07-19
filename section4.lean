@@ -323,7 +323,7 @@ end sigma_type
 section excercise
 
 variable (α : Type) (p q : α → Prop)
-variable (r : Prop)
+variable (r s : Prop)
 
 example : (∃ x : α, r) → r := fun t =>
   match t with
@@ -377,5 +377,16 @@ example : (∃ x, p x) ↔ ¬ (∀ x, ¬ p x) :=
       (fun (g : ¬ ∃ x, p x)=> h
         (fun (ix : α) =>
           (fun (pix : p ix) => g ⟨ix, pix⟩)))
+  ⟩
+
+example : (r ↔ s) → (s ↔ r) :=
+  fun ⟨hr, hs⟩ => ⟨hs, hr⟩
+
+example : (∀ x, p x → r) ↔ (∃ x, p x) → r :=
+  ⟨
+    (fun (h : ∀ x, p x → r) =>
+      (fun (⟨ix, pix⟩ : ∃ x, p x) => h ix pix)),
+    (fun (k : (∃ x , p x) → r)
+      => fun (ix : α) (pix : p ix) => k ⟨ix, pix⟩)
   ⟩
 end excercise
