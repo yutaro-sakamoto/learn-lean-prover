@@ -339,4 +339,8 @@ example : (∃ x, p x ∧ r) ↔ (∃ x, p x) ∧ r :=
     (fun h : (∃ x, p x) ∧ r =>
       match h with
       | ⟨⟨ix, pix⟩, ir⟩ => ⟨ix, ⟨pix, ir⟩⟩)
+
+example : (∃ x, p x ∧ r) ↔ (∃ x, p x) ∧ r :=
+  ⟨(fun ⟨(ix : α), (pix : p ix), (ir : r)⟩ => ⟨⟨ix, pix⟩, ir⟩),
+   (fun ⟨⟨(ix : α), (pix : p ix)⟩, (ir : r)⟩ => ⟨ix, pix, ir⟩)⟩
 end excercise
