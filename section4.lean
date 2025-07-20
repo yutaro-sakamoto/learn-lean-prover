@@ -423,3 +423,18 @@ example (a : α) : (∃ x, r → p x) ↔ (r → ∃ x, p x) :=
         (fun hnr : ¬ r => ⟨a, fun hr : r => absurd hr hnr⟩))
   ⟩
 end excercise
+
+section ProofLanguage
+variable (f : Nat → Nat)
+variable (h : ∀ x : Nat, f x ≤ f (x + 1))
+
+example : f 0 ≤ f 3 :=
+  have : f 0 ≤ f 1 := h 0
+  have : f 0 ≤ f 2 := Nat.le_trans this (h 1)
+  show f 0 ≤ f 3 from Nat.le_trans this (h 2)
+
+example : f 0 ≤ f 3 :=
+  have : f 0 ≤ f 1 := h 0
+  have : f 0 ≤ f 2 := Nat.le_trans (by assumption) (h 1)
+  show f 0 ≤ f 3 from Nat.le_trans (by assumption) (h 2)
+end ProofLanguage
