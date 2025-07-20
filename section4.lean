@@ -411,4 +411,15 @@ example : (∃ x, p x → r) ↔ (∀ x, p x) → r :=
                     have hex : ∃ x, p x → r := ⟨x, (fun hp : p x => absurd hp hnp)⟩
                     show False from hnex hex)
               show False from hnap hap)))
+
+example (a : α) : (∃ x, r → p x) ↔ (r → ∃ x, p x) :=
+  ⟨
+    (fun (⟨ix, h⟩ : ∃ x, r → p x) =>
+      fun (ir: r) => ⟨ix, h ir⟩),
+    (fun g : (r → ∃ x, p x) =>
+      Classical.byCases
+        (fun hr : r => match g hr with
+        | ⟨(ix : α), (pix : p ix)⟩ => ⟨ix, fun _ => pix⟩)
+        (fun hnr : ¬ r => ⟨a, fun hr : r => absurd hr hnr⟩))
+  ⟩
 end excercise
