@@ -444,4 +444,24 @@ example : f 0 ≥ f 1 → f 1 ≥ f 2 → f 0 = f 2 :=
   have : f 0 ≥ f 2 := Nat.le_trans ‹ f 1 ≥ f 2 › ‹ f 0 ≥ f 1 ›
   have : f 0 ≤ f 2 := Nat.le_trans (h 0) (h 1)
   show f 0 = f 2 from Nat.le_antisymm this ‹ f 0 ≥ f 2 ›
+
+def even(n : Nat) : Prop := ∃ m : Nat, n = 2 * m
+example : even 6 := ⟨3, Eq.refl _⟩
+def prime(n : Nat) : Prop :=  ∀ m : Nat, m < n ∧ (∃ m' : Nat, m * m' = n) → (m = 1 ∨ m = n)
+def inifinitely_many_primes : Prop := ∀ n : Nat, (∃ m : Nat, (prime m ∧ m > n))
+def Fermat_prime(n: Nat) : Prop := ∃ m : Nat, n = 2 ^ (2 ^ m) + 1
+def inifinitely_many_Fermat_primes : Prop := ∀ n : Nat, (∃ m : Nat, (Fermat_prime m ∧ m > n))
+def goldbach_conjecture : Prop := ∀ n : Nat, even n ∧ n > 2 → ∃ m₁ : Nat, ∃ m₂ : Nat, prime m₁ ∧ prime m₂ ∧ n = m₁ + m₂
+def Goldbach's_weak_conjecture : Prop :=
+  ∀ n : Nat, n > 5 ∧ ¬ prime n →
+    ∃ m₁ : Nat,
+    ∃ m₂ : Nat,
+    ∃ m₃ : Nat,
+      prime m₁  ∧
+      prime m₂  ∧
+      prime m₃  ∧
+      n = m₁ + m₂ + m₃
+def Fermat's_last_theorem : Prop :=
+  ∀ x : Nat, ∀ y : Nat, ∀ z : Nat, ∀ n : Nat,
+    n > 2 → x ^ n + y ^ n ≠ z ^ n
 end ProofLanguage
