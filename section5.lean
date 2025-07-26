@@ -90,3 +90,92 @@ example (x y z w : Nat) (h₁ : x = y) (h₂ : y = z) (h₃ : z = w) : x = w := 
   apply Eq.trans h₁
   apply Eq.trans h₂
   assumption
+
+example (x y z w : Nat) (h₁ : x = y) (h₂ : y = z) (h₃ : z = w) : x = w := by
+  apply Eq.trans
+  assumption
+  apply Eq.trans
+  assumption
+  assumption
+
+example : ∀ a b c : Nat, a = b → a = c → c = b := by
+  intros
+  apply Eq.trans
+  apply Eq.symm
+  assumption
+  assumption
+
+example : ∀ a b c : nat, a = b → a = c → c = b := by unhygienic
+  intros
+  apply Eq.trans
+  apply Eq.symm
+  exact a_2
+  exact a_1
+
+example : ∀ a b c d : Nat, a = b → a = d → a = c → c = b := by
+  intros
+  rename_i h1 _ h2
+  apply Eq.trans
+  apply Eq.symm
+  exact h2
+  exact h1
+
+example (y : Nat) : (fun _ : Nat => 0) y = 0 := by
+  rfl
+
+example (y : Nat) : (fun _ : Nat => 0) y = 0 := by
+  exact Eq.refl _
+
+example : ∀ a b c : Nat, a = b → a = c → c = b := by
+  intros
+  apply Eq.trans
+  apply Eq.symm
+  repeat assumption
+
+example (x : Nat) : x = x := by
+  revert x
+  intro y
+  rfl
+
+example (x y : Nat) (h : x = y) : y = x := by
+  revert x
+  intros
+  apply Eq.symm
+  assumption
+
+example (x y : Nat) (h : x = y) : y = x := by
+  intros
+  apply Eq.symm
+  assumption
+
+example (x y : Nat) (h : x = y) : y = x := by
+  apply Eq.symm
+  assumption
+
+example (x y : Nat) (h : x = y) : y = x := by
+  apply Eq.symm h
+
+example (x y : Nat) (h : x = y) : y = x := Eq.symm h
+
+example (x y : Nat) (h : x = y) : y = x := by
+  revert x y
+  intros
+  apply Eq.symm
+  assumption
+
+example : 3 = 3 := by
+  generalize 3 = x
+  revert x
+  intro y
+  rfl
+
+example : 3 = 3 := by
+  rfl
+
+example : 2 + 3 = 5 := by
+  generalize 3 = x
+  admit
+
+example : 2 + 3 = 5 := by
+  generalize h : 3 = x
+  rw [← h]
