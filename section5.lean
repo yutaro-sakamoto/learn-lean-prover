@@ -317,3 +317,28 @@ example (P : Nat → Prop) (h₀ : P 0) (h₁ : ∀ n, P (succ n)) (m : Nat) : P
   cases m with
   | zero => exact h₀
   | succ m' => exact h₁ m'
+
+example (p q : Prop) : p ∧ ¬ p → q := by
+  intro h
+  cases h
+  contradiction
+
+example (p q r : Prop) : p ∧ (q ∨ r) ↔ (p ∧ q) ∨ (p ∧ r) := by
+  apply Iff.intro
+  . intro h
+    match h with
+    | ⟨_, Or.inl _⟩ => apply Or.inl; constructor <;> assumption
+    | ⟨_, Or.inr _⟩ => apply Or.inr; constructor <;> assumption
+  . intro h
+    match h with
+    | Or.inl ⟨hp, hq⟩ => constructor; exact hp; exact Or.inl hq
+    | Or.inr ⟨hp, hr⟩ => constructor; exact hp; exact Or.inr hr
+
+example (p q r : Prop) : p ∧ (q ∨ r) ↔ (p ∧ q) ∨ (p ∧ r) := by
+  apply Iff.intro
+  . intro
+    | ⟨hp, Or.inl hq⟩ => apply Or.inl; constructor <;> assumption
+    | ⟨hp, Or.inr hr⟩ => apply Or.inr; constructor <;> assumption
+  . intro
+    | Or.inl ⟨hp, hq⟩ => constructor; assumption; apply Or.inl; assumption
+    | Or.inr ⟨hp, hr⟩ => constructor; assumption; apply Or.inr; assumption
