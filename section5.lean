@@ -402,3 +402,14 @@ example (p q r : Prop) : p ∧ (q ∨ r) → (p ∧ q) ∨ (p ∧ r) := by
     have hpr : p ∧ r := And.intro hp hr
     apply Or.inr
     exact hpr
+
+example (p q r : Prop) : p ∧ (q ∨ r) → (p ∧ q) ∨ (p ∧ r) := by
+  intro ⟨hp, hqr⟩
+  show (p ∧ q) ∨ (p ∧ r)
+  cases hqr with
+  | inl hq =>
+    have : p ∧ q := ⟨hp, hq⟩
+    exact Or.inl this
+  | inr hr =>
+    have : p ∧ r := ⟨hp, hr⟩
+    exact Or.inr this
