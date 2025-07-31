@@ -413,3 +413,7 @@ example (p q r : Prop) : p ∧ (q ∨ r) → (p ∧ q) ∨ (p ∧ r) := by
   | inr hr =>
     have : p ∧ r := ⟨hp, hr⟩
     exact Or.inr this
+
+example : ∃ x, x + 2 = 8 := by
+  let a : Nat := 3 * 2
+  exists a
