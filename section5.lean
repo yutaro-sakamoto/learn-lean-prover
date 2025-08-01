@@ -417,3 +417,20 @@ example (p q r : Prop) : p ∧ (q ∨ r) → (p ∧ q) ∨ (p ∧ r) := by
 example : ∃ x, x + 2 = 8 := by
   let a : Nat := 3 * 2
   exists a
+
+example (p q r : Prop) : p ∧ (q ∨ r) ↔ (p ∧ q) ∨ (p ∧ r) := by
+  apply Iff.intro
+  { intro h;
+    cases h.right;
+    { show (p ∧ q) ∨ (p ∧ r);
+      exact Or.inl ⟨h.left, ‹q›⟩ }
+    { show (p ∧ q) ∨ (p ∧ r);
+      exact Or.inr ⟨h.left, ‹r›⟩ } }
+  { intro h;
+    cases h;
+    { show p ∧ (q ∨ r);
+      rename_i hpq;
+      exact ⟨hpq.left, Or.inl hpq.right⟩ }
+    { show p ∧ (q ∨ r);
+      rename_i hpr;
+      exact ⟨hpr.left, Or.inr hpr.right⟩ } }
