@@ -434,3 +434,9 @@ example (p q r : Prop) : p ∧ (q ∨ r) ↔ (p ∧ q) ∨ (p ∧ r) := by
     { show p ∧ (q ∨ r);
       rename_i hpr;
       exact ⟨hpr.left, Or.inr hpr.right⟩ } }
+
+example (p q : Prop) (hp : p) : p ∨ q :=
+  by apply Or.inl; assumption
+
+example (p q : Prop) (hp : p) (hq : q) : p ∧ q :=
+  by constructor <;> assumption
