@@ -440,3 +440,24 @@ example (p q : Prop) (hp : p) : p ∨ q :=
 
 example (p q : Prop) (hp : p) (hq : q) : p ∧ q :=
   by constructor <;> assumption
+
+example (p q : Prop) (hp : p) : p ∨ q := by
+  first | apply Or.inl; assumption | apply Or.inl; assumption
+
+example (p q : Prop) (hq : q) : p ∨ q := by
+  first | apply Or.inr; assumption | apply Or.inl; assumption
+
+example (p q r : Prop) (hp : p) : p ∨ q ∨ r :=
+  by repeat (first | apply Or.inl; assumption | apply Or.inr | assumption)
+
+example (p q r : Prop) (hp : p) : p ∨ q ∨ r := by
+  --apply Or.inl; assumption
+  first | apply Or.inl; assumption | apply Or.inr | assumption
+
+example (p q r : Prop) (hq : q) : p ∨ q ∨ r := by
+  --apply Or.inr; apply Or.inl; assumption
+  repeat (first | apply Or.inl; assumption | apply Or.inr | assumption)
+
+example (p q r : Prop) (hr : r) : p ∨ q ∨ r := by
+  --apply Or.inr; apply Or.inr; assumption
+  repeat (first | apply Or.inl; assumption | apply Or.inr | assumption)
