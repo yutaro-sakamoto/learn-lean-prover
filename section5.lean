@@ -461,3 +461,6 @@ example (p q r : Prop) (hq : q) : p ∨ q ∨ r := by
 example (p q r : Prop) (hr : r) : p ∨ q ∨ r := by
   --apply Or.inr; apply Or.inr; assumption
   repeat (first | apply Or.inl; assumption | apply Or.inr | assumption)
+
+example (p q r : Prop) (hp : p) (hq : q) (hr : r) : p ∧ q ∧ r := by
+  constructor <;> (try constructor) <;> assumption
