@@ -464,3 +464,13 @@ example (p q r : Prop) (hr : r) : p ∨ q ∨ r := by
 
 example (p q r : Prop) (hp : p) (hq : q) (hr : r) : p ∧ q ∧ r := by
   constructor <;> (try constructor) <;> assumption
+
+example (p q r : Prop) (hp : p) (hq : q) (hr : r) : p ∧ q ∧ r := by
+  constructor
+  all_goals (try constructor)
+  all_goals assumption
+
+example (p q r : Prop) (hp : p) (hq : q) (hr : r) : p ∧ q ∧ r := by
+  constructor
+  all_goals (try constructor)
+  repeat assumption
