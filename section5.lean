@@ -474,3 +474,17 @@ example (p q r : Prop) (hp : p) (hq : q) (hr : r) : p ∧ q ∧ r := by
   constructor
   all_goals (try constructor)
   repeat assumption
+
+example (p q r : Prop) (hp : p) (hq : q) (hr :r) : p ∧ q ∧ r := by
+  constructor
+  any_goals constructor
+  any_goals assumption
+
+example (p q r : Prop) (hp : p) (hq : q) (hr : r) :
+  p ∧ ((p ∧ q) ∧ r) ∧ (q ∧ r ∧ p) := by
+  repeat (any_goals constructor)
+  all_goals assumption
+
+example (p q r : Prop) (hp : p) (hq : q) (hr : r) :
+  p ∧ ((p ∧ q) ∧ r) ∧ (q ∧ r ∧ p) := by
+  repeat (any_goals (first | constructor | assumption))
