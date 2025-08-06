@@ -488,3 +488,7 @@ example (p q r : Prop) (hp : p) (hq : q) (hr : r) :
 example (p q r : Prop) (hp : p) (hq : q) (hr : r) :
   p ∧ ((p ∧ q) ∧ r) ∧ (q ∧ r ∧ p) := by
   repeat (any_goals (first | constructor | assumption))
+
+example (f : Nat → Nat) (k : Nat) (h₁ : f 0 = 0) (h₂ : k = 0) : f k = 0 := by
+  rw [h₂]
+  rw [h₁]
