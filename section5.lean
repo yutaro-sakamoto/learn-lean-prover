@@ -498,3 +498,6 @@ example (x y : Nat) (p : Nat → Prop) (q : Prop) (h : q → x = y) (h' : p y) (
 
 example (f : Nat → Nat) (k : Nat) (h₁ : f 0 = 0) (h₂ : k = 0) : f k = 0 := by
   rw [h₂, h₁]
+
+example (f : Nat → Nat) (a b : Nat) (h₁ : a = b) (h₂ : f a = 0) : f b = 0 := by
+  rw [←h₁, h₂]
