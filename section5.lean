@@ -512,3 +512,14 @@ example (a b c : Nat) : a + b + c = a + c + b := by
 example (a b c : Nat) : a + b + c = a + c + b := by
   rw [Nat.add_assoc, Nat.add_assoc]
   rw [Nat.add_comm _ b]
+
+example (f : Nat → Nat) (a : Nat) (h : a + 0 = 0) : f a = f 0 := by
+  rw [Nat.add_zero] at h
+  rw [h]
+
+def Tuple (α : Type) (n : Nat) :=
+  { as : List α // as.length = n}
+
+example (n : Nat) (h : n = 0) (t : Tuple α n) : Tuple α 0 := by
+  rw [h] at t
+  exact t
