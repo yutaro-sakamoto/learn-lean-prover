@@ -686,3 +686,31 @@ macro_rules | `(tactic| triv) => `(tactic | apply And.intro <;> triv)
 
 example (x : α) (h : p) : x = x ∧ p := by
   triv
+
+example (p q r : Prop) (hp : p)
+    : (q ∨ p ∨ r) := by
+  apply Or.inr
+  apply Or.inl
+  assumption
+
+example (p q r : Prop) (hp : p)
+    : (p ∨ q ∨ r) ∧ (q ∨ p ∨ r) ∧ (q ∨ r ∨ p) := by
+  --repeat constructor <;> (first | assumption | constructor <;> assumption | apply Or.inr; apply Or.inl; assumption)
+  apply And.intro
+  . apply Or.inl
+    assumption
+  . apply And.intro
+    . apply Or.inr
+      apply Or.inl
+      assumption
+    . apply Or.inr
+      apply Or.inr
+      assumption
+
+example (p q r : Prop) (hp : p)
+    : (p ∨ q ∨ r) ∧ (q ∨ p ∨ r) ∧ (q ∨ r ∨ p) := by
+  simp [hp]
+
+example (p q r : Prop) (hp : p)
+    : (p ∨ q ∨ r) ∧ (q ∨ p ∨ r) ∧ (q ∨ r ∨ p) := by
+  constructor <;> constructor <;> (first | assumption | apply Or.inr; apply Or.inl; assumption | apply Or.inr; apply Or.inr; assumption)
