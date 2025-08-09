@@ -635,3 +635,32 @@ example : if x = 0 then y + x = y else x ≠ 0 := by
 
 example : ∀ (x : Nat) (h : x = 0), y + x = y := by
   simp (config := { contextual := true})
+
+def ff (x y z : Nat) : Nat :=
+  match x, y, z with
+  | 5, _, _ => y
+  | _, 5, _ => y
+  | _, _, 5 => y
+  | _, _, _ => 1
+
+example (x y z : Nat) : x ≠ 5 → y ≠ 5 → z ≠ 5 → z = w → ff x y w = 1 := by
+  intros
+  simp [ff]
+  split
+  . contradiction
+  . contradiction
+  . contradiction
+  . rfl
+
+example (x y z : Nat) : x ≠ 5 → y ≠ 5 → z ≠ 5 → z = w → ff x y w = 1 := by
+  intros; simp [ff]; split <;> first | contradiction | rfl
+
+def gg (xs ys : List Nat) : Nat :=
+  match xs, ys with
+  | [a, b], _ => a + b + 1
+  | _, [b, _] => b + 1
+  | _, _ => 1
+
+--example (xs ys : List Nat) (h : gg xs ys = 0) : False := by
+--  simp [gg] at h
+--  split at h <;> simp_arith at h
