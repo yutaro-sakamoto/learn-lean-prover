@@ -664,3 +664,25 @@ def gg (xs ys : List Nat) : Nat :=
 --example (xs ys : List Nat) (h : gg xs ys = 0) : False := by
 --  simp [gg] at h
 --  split at h <;> simp_arith at h
+
+syntax "triv" : tactic
+
+macro_rules
+  | `(tactic| triv) => `(tactic| assumption)
+
+example (h : p) : p := by
+  triv
+
+macro_rules
+  | `(tactic| triv) => `(tactic | rfl)
+
+example (x : α) : x = x := by
+  triv
+
+example (x : α) (h : p) : x = x ∧ p := by
+  apply And.intro <;> triv
+
+macro_rules | `(tactic| triv) => `(tactic | apply And.intro <;> triv)
+
+example (x : α) (h : p) : x = x ∧ p := by
+  triv
